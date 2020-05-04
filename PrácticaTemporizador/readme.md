@@ -1,4 +1,4 @@
-#Práctica Aplicativo Temporizador para Ejercicio en NetBeans
+# Práctica Aplicativo Temporizador para Ejercicio en NetBeans
 
 Santiago Gómez Almeyda 20161020503
 

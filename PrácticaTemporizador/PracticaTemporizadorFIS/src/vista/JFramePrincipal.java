@@ -5,6 +5,7 @@
  */
 package vista;
 
+import javax.swing.JOptionPane;
 import logica.Temporizador;
 
 /**
@@ -13,6 +14,8 @@ import logica.Temporizador;
  */
 public class JFramePrincipal extends javax.swing.JFrame {
 
+    Temporizador timeout;
+    
     /**
      * Creates new form JFramePrincipal
      */
@@ -40,6 +43,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         label = new javax.swing.JLabel();
         minutos = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        estado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,7 +51,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         lbD.setText("59s");
 
         inicio.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        inicio.setText("INICIO");
+        inicio.setText("INICIAR");
         inicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inicioActionPerformed(evt);
@@ -56,6 +60,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         detener.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         detener.setText("DETENER");
+        detener.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                detenerActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         jLabel1.setText("EVERY MINUTE ON THE MINUTE - UD");
@@ -76,20 +85,47 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
 
-        label.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        label.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setText("00:00:00");
+        label.setText("00 : 00 : 00");
         label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        label.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                labelPropertyChange(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Minutos a trabajar:");
+
+        estado.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        estado.setForeground(new java.awt.Color(255, 0, 0));
+        estado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        estado.setText("Tiempo de trabajo!!");
+        estado.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(112, 112, 112)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(36, 36, 36)
+                        .addComponent(minutos, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(inicio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
+                                .addComponent(detener)))
+                        .addContainerGap(81, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(141, 141, 141)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -106,62 +142,70 @@ public class JFramePrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel2))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(172, 172, 172)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(36, 36, 36)
-                                .addComponent(minutos, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(inicio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(detener)
-                                .addGap(49, 49, 49)))))
-                .addContainerGap(64, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                            .addComponent(estado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(20, 20, 20)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbD, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(comboT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbT, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25)
-                .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(minutos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(23, 23, 23)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inicio)
                     .addComponent(detener))
-                .addGap(63, 63, 63))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
-
-        Temporizador timeout = new Temporizador(Integer.parseInt(minutos.getText()),label);
-        
+        if(inicio.getText().equals("INICIAR")){
+            try{
+                int min = Integer.parseInt(minutos.getText());
+                if(min > 0){
+                    int TT = Integer.parseInt(comboT.getSelectedItem().toString());
+                    timeout = new Temporizador(min,TT,60 - TT,label,estado);
+                    inicio.setText("PAUSAR");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Digite un numero entero de minutos (mayor que 0) a trabajar", "ERROR!!", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Digite un numero entero de minutos a trabajar", "ERROR!!", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }else if(inicio.getText().equals("PAUSAR")){
+            timeout.pausar();
+            inicio.setText("REANUDAR");
+        }else{
+            timeout.reanudar();
+            inicio.setText("PAUSAR");
+        }
     }//GEN-LAST:event_inicioActionPerformed
 
     private void comboTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTActionPerformed
@@ -177,6 +221,19 @@ public class JFramePrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboTActionPerformed
 
+    private void detenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detenerActionPerformed
+        if(timeout != null){
+            timeout.detener();
+            inicio.setText("INICIAR");
+        }
+    }//GEN-LAST:event_detenerActionPerformed
+
+    private void labelPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_labelPropertyChange
+        if(label.getText().equals("00 : 00 : 00")){
+            inicio.setText("INICIAR");
+        }
+    }//GEN-LAST:event_labelPropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -185,6 +242,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboT;
     private javax.swing.JButton detener;
+    private javax.swing.JLabel estado;
     private javax.swing.JButton inicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

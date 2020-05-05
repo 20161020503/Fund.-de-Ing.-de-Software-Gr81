@@ -63,31 +63,31 @@ public class Temporizador {
                     }
                 }
                 if (isTimerRunning) {
-                    comprobarEstado();
                     String tiempo = "";
-                    if(hour < 10){
+                    if (hour < 10) {
                         tiempo += "0" + hour;
-                    }else{
+                    } else {
                         tiempo += hour;
                     }
-                    
-                    if(minute < 10){
+
+                    if (minute < 10) {
                         tiempo += " : 0" + minute;
-                    }else{
+                    } else {
                         tiempo += " : " + minute;
                     }
-                    
-                    if(second < 10){
+
+                    if (second < 10) {
                         tiempo += " : 0" + second;
-                    }else{
+                    } else {
                         tiempo += " : " + second;
                     }
-                    
+
                     display.setText(tiempo);
+                    comprobarEstado();
                 }
             }
         };
-        
+
         return task;
     }
 
@@ -131,36 +131,36 @@ public class Temporizador {
             estado.setText("Tiempo de descanso");
             contadorT = tiempoT;
             //Sonido mp3
-               try{
-            Clip sonido = AudioSystem.getClip();
-            File a = new File("src\\static\\alarma.wav");
-        sonido.open(AudioSystem.getAudioInputStream(a));
-        sonido.start();
-        
-        Thread.sleep(2200);
-        
-        sonido.close();
-            }catch (LineUnavailableException | UnsupportedAudioFileException | IOException | InterruptedException tipoError)   {       
+            try {
+                Clip sonido = AudioSystem.getClip();
+                File a = new File("src\\static\\alarma.wav");
+                sonido.open(AudioSystem.getAudioInputStream(a));
+                sonido.start();
+
+                Thread.sleep(2200);
+
+                sonido.close();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException | InterruptedException tipoError) {
             }
-               //Fin mp3
+            //Fin mp3
         }
         if (contadorD == 0) {
             estado.setForeground(new java.awt.Color(255, 0, 0));
             estado.setText("Tiempo de trabajo!!");
             contadorD = tiempoD;
             //Sonido mp3
-            try{
-            Clip sonido = AudioSystem.getClip();
-            File a = new File("src\\static\\alarma.wav");
-        sonido.open(AudioSystem.getAudioInputStream(a));
-        sonido.start();
-        
-        Thread.sleep(2200);
-        
-        sonido.close();
-            }catch (LineUnavailableException | UnsupportedAudioFileException | IOException | InterruptedException tipoError)   {       
+            try {
+                Clip sonido = AudioSystem.getClip();
+                File a = new File("src\\static\\alarma.wav");
+                sonido.open(AudioSystem.getAudioInputStream(a));
+                sonido.start();
+
+                Thread.sleep(2200);
+
+                sonido.close();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException | InterruptedException tipoError) {
             }
-        
+
         }
     }
 

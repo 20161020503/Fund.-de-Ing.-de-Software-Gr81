@@ -1,9 +1,15 @@
 package logica;
 
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.event.ActionEvent;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JLabel;
 
 public class Temporizador {
@@ -124,11 +130,37 @@ public class Temporizador {
             estado.setForeground(new java.awt.Color(0, 255, 51));
             estado.setText("Tiempo de descanso");
             contadorT = tiempoT;
+            //Sonido mp3
+               try{
+            Clip sonido = AudioSystem.getClip();
+            File a = new File("src\\static\\alarma.wav");
+        sonido.open(AudioSystem.getAudioInputStream(a));
+        sonido.start();
+        
+        Thread.sleep(2200);
+        
+        sonido.close();
+            }catch (LineUnavailableException | UnsupportedAudioFileException | IOException | InterruptedException tipoError)   {       
+            }
+               //Fin mp3
         }
         if (contadorD == 0) {
             estado.setForeground(new java.awt.Color(255, 0, 0));
             estado.setText("Tiempo de trabajo!!");
             contadorD = tiempoD;
+            //Sonido mp3
+            try{
+            Clip sonido = AudioSystem.getClip();
+            File a = new File("src\\static\\alarma.wav");
+        sonido.open(AudioSystem.getAudioInputStream(a));
+        sonido.start();
+        
+        Thread.sleep(2200);
+        
+        sonido.close();
+            }catch (LineUnavailableException | UnsupportedAudioFileException | IOException | InterruptedException tipoError)   {       
+            }
+        
         }
     }
 
